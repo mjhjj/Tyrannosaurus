@@ -7,6 +7,6 @@ run:
 
 .PHONY: build
 build:
-	go build -o ./bin/polliter.exe ./cmd/server/main.go
+	go build  ./cmd/server/main.go
 
 .DEFAULT_GOAL:=run

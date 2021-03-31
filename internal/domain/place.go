@@ -1,9 +1,12 @@
 package domain
 
 type Place struct {
-	Id      int
-	Name    string
-	Address string
-	About   string
-	Photos  []string
+	Id          string `json:"id"`
+	PositionX   string `json:"mmx"`
+	PositionY   string `json:"mmy"`
+	Name        string `json:"placeName"`
+	Address     string `json:"placeAddress"`
+	About       string `json:"placeAbout"`
+	Bio         string `json:"placeBio"`
+	PanoramLink string `json:"panoramLink"`
 }
