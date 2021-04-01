@@ -5,32 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Додати місце</title>
 </head>
 
 <body>
-    <form action="/api/v1/add">
-        <p><b>add place</b></p>
-        <input type="text" name="secret"><b>secret code</b><br>
-        <input type="text" name="x"><b>x</b><br>
-        <input type="text" name="y"><b>y</b><br>
+    <form style="align-items: center;" action="/api/v1/add">
+        <p>Секретний код</p>
+        <input type="password" name="secret"><br>
 
-        Name
+        <p>Координата x</p>
+        <input type="text" name="x"><br>
+
+        <p>Координата y</p>
+        <input type="text" name="y"><br>
+
+        <p>Назва</p>
         <textarea name="name" id="" cols="30" rows="10"></textarea>
         <br>
-        Address
+        <p>Адреса</p>
         <textarea name="address" id="" cols="30" rows="10"></textarea>
         <br>
-        About
+        <p>Про місце</p>
         <textarea name="about" id="" cols="30" rows="10"></textarea>
         <br>
-        Bio
+        <p>Біографія діяча</p>
         <textarea name="bio" id="" cols="30" rows="10"></textarea>
         <br>
-        Link
+        <p>Посилання на панораму</p>
         <textarea name="link" id="" cols="30" rows="10"></textarea>
         <br>
-        <input type="submit">
+        <input style="padding: 1rem;" type="submit">
     </form>
 </body>
 

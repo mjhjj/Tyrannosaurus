@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mjhjj/Tyrannosaurus/internal/domain"
@@ -12,7 +12,7 @@ import (
 
 func main() {
 	// Dependencies
-	db, err := repository.NewSQLiteDB("psuyhribga8wayvrwatayuog.db")
+	db, err := repository.NewSQLiteDB(os.Getenv("PLACES_BD_NAME"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -20,12 +20,13 @@ func main() {
 
 	// default router
 	router := gin.Default()
-	router.LoadHTMLFiles("add.html")
+	router.LoadHTMLFiles("add.html", "docs.html")
 
 	// serve frontend
 	router.Static("/home", "./dist")
 	router.Static("/css", "./dist/css")
 	router.Static("/js", "./dist/js")
+
 	// redirect to main page
 	router.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/home")
@@ -50,18 +51,24 @@ func main() {
 				return
 			}
 			c.JSON(http.StatusOK, places)
-			fmt.Println(places)
 		})
 		v1.GET("/addPlacePleace", func(c *gin.Context) {
 			c.HTML(http.StatusOK, "add.html", gin.H{
-				"title": "Main website",
+				"title": "add",
+			})
+		})
+
+		v1.Static("/images", "./images")
+		v1.GET("/docs", func(c *gin.Context) {
+			c.HTML(http.StatusOK, "docs.html", gin.H{
+				"title": "docs",
 			})
 		})
 
 		v1.GET("/add", func(c *gin.Context) {
 
 			secret := c.Query("secret")
-			if secret != "1mr4sist" {
+			if secret != os.Getenv("ADD_PLACE_SECRET") {
 				c.JSON(http.StatusForbidden, gin.H{
 					"message": "forbidden",
 				})
