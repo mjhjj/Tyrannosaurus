@@ -67,22 +67,29 @@ func main() {
 
 		v1.GET("/add", func(c *gin.Context) {
 
-			secret := c.Query("secret")
+			secret := c.PostForm("secret")
 			if secret != os.Getenv("ADD_PLACE_SECRET") {
 				c.JSON(http.StatusForbidden, gin.H{
 					"message": "forbidden",
 				})
 				return
 			}
-			x := c.Query("x")
-			y := c.Query("y")
-			name := c.Query("name")
-			address := c.Query("address")
-			about := c.Query("about")
-			bio := c.Query("bio")
-			link := c.Query("link")
+			x := c.PostForm("x")
+			y := c.PostForm("y")
+			name := c.PostForm("name")
+			address := c.PostForm("address")
+			about := c.PostForm("about")
+			bio := c.PostForm("bio")
+			link := c.PostForm("link")
 
-			err := repo.Places.Insert(domain.Place{"0", x, y, name, address, about, bio, link})
+			err := repo.Places.Insert(domain.Place{Id: "0",
+				PositionX:   x,
+				PositionY:   y,
+				Name:        name,
+				Address:     address,
+				About:       about,
+				Bio:         bio,
+				PanoramLink: link})
 			if err != nil {
 				log.Println(err.Error())
 				c.JSON(http.StatusInternalServerError, gin.H{
