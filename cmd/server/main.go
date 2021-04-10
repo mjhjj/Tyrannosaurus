@@ -1,9 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mjhjj/Tyrannosaurus/internal/domain"
@@ -65,7 +68,7 @@ func main() {
 			})
 		})
 
-		v1.GET("/add", func(c *gin.Context) {
+		v1.POST("/add", func(c *gin.Context) {
 
 			secret := c.PostForm("secret")
 			if secret != os.Getenv("ADD_PLACE_SECRET") {
@@ -81,15 +84,53 @@ func main() {
 			about := c.PostForm("about")
 			bio := c.PostForm("bio")
 			link := c.PostForm("link")
+			linkName := c.PostForm("linkName")
+			sity := c.PostForm("sity")
+			nameForImage := time.Now().Unix()
+			image, header, err := c.Request.FormFile("image")
+			if err != nil {
+				log.Println(err.Error())
+			}
+			// save image to images directory
+			if header != nil {
+				out, err := os.Create("images/" + fmt.Sprintf("%d", nameForImage))
+				if err != nil {
+					log.Println(err)
+				}
+				defer out.Close()
+				_, err = io.Copy(out, image)
+				if err != nil {
+					log.Println(err)
+				}
 
-			err := repo.Places.Insert(domain.Place{Id: "0",
+				err = repo.Places.Insert(domain.Place{Id: "0",
+					PositionX:   x,
+					PositionY:   y,
+					Name:        name,
+					Address:     address,
+					About:       about,
+					Bio:         bio,
+					PanoramLink: link,
+					LinkName:    linkName,
+					Sity:        sity,
+					Image:       "/api/v1/images/" + fmt.Sprintf("%d", nameForImage),
+				})
+				c.Redirect(http.StatusFound, "/home")
+				return
+			}
+			// if image is not uploaded
+			err = repo.Places.Insert(domain.Place{Id: "0",
 				PositionX:   x,
 				PositionY:   y,
 				Name:        name,
 				Address:     address,
 				About:       about,
 				Bio:         bio,
-				PanoramLink: link})
+				PanoramLink: link,
+				LinkName:    linkName,
+				Sity:        sity,
+				Image:       "",
+			})
 			if err != nil {
 				log.Println(err.Error())
 				c.JSON(http.StatusInternalServerError, gin.H{

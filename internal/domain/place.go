@@ -8,5 +8,8 @@ type Place struct {
 	Address     string `json:"placeAddress"`
 	About       string `json:"placeAbout"`
 	Bio         string `json:"placeBio"`
+	Image       string `json:"placeImage"`
+	Sity        string `json:"sityName"`
 	PanoramLink string `json:"panoramLink"`
+	LinkName    string `json:"linkButtonName"`
 }

@@ -9,30 +9,36 @@
 </head>
 
 <body>
-    <form style="align-items: center;" action="/api/v1/add">
+    <form enctype="multipart/form-data" method="POST" style="align-items: center;" action="/api/v1/add">
         <p>Секретний код</p>
         <input type="password" name="secret"><br>
 
         <p>Координата x</p>
-        <input type="text" name="x"><br>
+        <input type="number" name="x"><br>
 
         <p>Координата y</p>
-        <input type="text" name="y"><br>
+        <input type="number" name="y"><br>
 
         <p>Назва</p>
-        <textarea name="name" id="" cols="30" rows="10"></textarea>
+        <textarea name="name" id="" cols="200" rows="20"></textarea>
         <br>
         <p>Адреса</p>
-        <textarea name="address" id="" cols="30" rows="10"></textarea>
+        <textarea name="address" id="" cols="200" rows="20"></textarea>
         <br>
         <p>Про місце</p>
-        <textarea name="about" id="" cols="30" rows="10"></textarea>
+        <textarea name="about" id="" cols="200" rows="20"></textarea>
         <br>
         <p>Біографія діяча</p>
-        <textarea name="bio" id="" cols="30" rows="10"></textarea>
+        <textarea name="bio" id="" cols="200" rows="20"></textarea>
         <br>
-        <p>Посилання на панораму</p>
-        <textarea name="link" id="" cols="30" rows="10"></textarea>
+        <p>Посилання</p>
+        <textarea name="link" id="" cols="200" rows="20"></textarea>
+        <p>Назва кнопки посилання</p>
+        <textarea name="linkName" id="" cols="200" rows="20"></textarea>
+        <p>Назва населеного пункту</p>
+        <textarea name="sity" id="" cols="200" rows="20"></textarea>
+        <p>Картинка</p>
+        <input type="file" name="image" id="">
         <br>
         <input style="padding: 1rem;" type="submit">
     </form>
