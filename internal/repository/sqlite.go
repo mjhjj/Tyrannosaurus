@@ -21,7 +21,6 @@ func NewSQLiteDB(path string) (*sql.DB, error) {
 
 	// create table workers if don`t exist
 	query := "CREATE TABLE places (id INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,x TEXT  NOT NULL,y TEXT  NOT NULL,name TEXT  NOT NULL,address TEXT  NOT NULL,about TEXT  NOT NULL,bio TEXT  NOT NULL,link TEXT  NOT NULL, sity TEXT  NOT NULL, image TEXT  NOT NULL, linkName TEXT  NOT NULL);"
-	//query := "UPDATE places SET x='652', y='188' WHERE id=14;"
 	db.Exec(query)
 
 	return db, nil
